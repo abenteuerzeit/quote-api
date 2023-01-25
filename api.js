@@ -4,13 +4,40 @@ const { quotes } = require('./data');
 const { getRandomElement } = require('./utils');
 
 
+// GET api/quotes?person=author
 apiRouter.get('/quotes', (req, res, next) => {
-    res.status(200).json({ quotes: quotes });
+    const { person } = req.query;
+    if (person) {
+        res.status(200).json({ quotes: quotes.filter(q => q.person.toLowerCase() === person.toLowerCase()) });
+    } else {
+        res.status(200).json({ quotes });
+    }
 });
 
+// GET api/quotes/random
 apiRouter.get('/quotes/random', (req, res, next) => {
     const randomQuote = getRandomElement(quotes);
     res.status(200).json({ quote: randomQuote });
 });
+
+// POST api/quotes
+apiRouter.post('/quotes', (req, res, next) => {
+    if (req.query.quote && req.query.person) {
+        const highestId = quotes.find(q => q.id === Math.max(...quotes.map(q => q.id)));
+        const newQuote = {
+            id: highestId.id + 1,
+            quote: req.query.quote,
+            person: req.query.person
+        }
+        quotes.push(newQuote);
+        console.log(`Added quote ${newQuote.quote} by ${newQuote.person} with id ${newQuote.id}`);
+        res.status(201).json({ quote: newQuote });
+    } else {
+        console.log(`Query parameters missing, received: ${req.query}`);
+        res.status(400).json({ error: 'Invalid request: query parameters quote and person are required'});
+    }
+});
+
+
 
 module.exports = apiRouter;
