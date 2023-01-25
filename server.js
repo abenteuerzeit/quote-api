@@ -1,14 +1,11 @@
 const express = require('express');
 const app = express();
-
-const { quotes } = require('./data');
-const { getRandomElement } = require('./utils');
-
+const apiRouter = require('./api');
 const PORT = process.env.PORT || 4001;
 
 app.use(express.static('public'));
-
+app.use('/api', apiRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
