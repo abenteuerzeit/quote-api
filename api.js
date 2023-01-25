@@ -8,6 +8,9 @@ apiRouter.get('/quotes', (req, res, next) => {
     res.status(200).json({ quotes: quotes });
 });
 
-
+apiRouter.get('/quotes/random', (req, res, next) => {
+    const randomQuote = getRandomElement(quotes);
+    res.status(200).json({ quote: randomQuote });
+});
 
 module.exports = apiRouter;
