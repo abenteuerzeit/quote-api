@@ -38,6 +38,17 @@ apiRouter.post('/quotes', (req, res, next) => {
     }
 });
 
-
+// DELETE api/quotes/:id
+apiRouter.delete('/quotes/:id', (req, res, next) => {
+    const index = quotes.findIndex(q => q.id === Number(req.params.id));
+    if (index!== -1) {
+        quotes.splice(index, 1);
+        console.log(`Deleted quote with id ${req.params.id}`);
+        res.status(204).end();
+    } else {
+        console.log(`Quote with id ${req.params.id} not found`);
+        res.status(404).end();
+    }
+});
 
 module.exports = apiRouter;
