@@ -19,14 +19,19 @@ The API supports cUrl requests. To get quotes, run:
 
 The API supports Postman requests. To get quotes, run:
 
+Get all quotes
+
     GET http://localhost:4001/api/quotes
 
-    POST http://localhost:4001/api/quotes
-    {
-        "quote": "This is a quote",
-        "author": "Author Name"
-    }
+Get random quote
 
-    PUT http://localhost:4001/api/quotes?quote=quoteText&author=authorName
+    GET http://localhost:4001/api/quotes/random
 
+Add a new quote via query string, person and quote are required
+
+    POST http://localhost:4001/api/quotes?person=John%20Doe&quote=This%20is%20a%20quote
+
+Delete a quote by id
+
+    DELETE http://localhost:4001/api/quotes/1
 
