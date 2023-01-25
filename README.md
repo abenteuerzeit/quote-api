@@ -35,3 +35,9 @@ Delete a quote by id
 
     DELETE http://localhost:4001/api/quotes/1
 
+
+## TODO future features
+
+1. Add other data to the array, such as the year of each quote, and display it on the front-end.
+2. Add another resource to the API in addition to quotes, such as biographical blurbs (need to find data for this new resource). Use Express Routers to keep the code simple and separated into different files for each router.
+
